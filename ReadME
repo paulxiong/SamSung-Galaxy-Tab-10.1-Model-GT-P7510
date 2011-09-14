@@ -1,0 +1,30 @@
+How Build
+
+Get Cross Compiler if you don't have one:
+Warning: don't use new compiler, it will built kernel successfully, but kernel will NOT work. Following cross compiler directly download from the link which being mentioned in Samsung doc, though they didn't say newer one doesn't work.
+
+   1.  http://www.codesourcery.com/sgpp/lite/arm/portal/package7813/public/arm-none-eabi/arm-2010.09-51-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
+   2.  tar -jxvf arm-2010.09-51-arm-none-eabi-i686-pc-linux-gnu.tar.bz2 
+
+Modify Makefile for Cross Compiler.
+	vim galaxytab101_build_kernel.sh and looking for following line:
+		export CROSS_COMPILE=/home/bxiong/android/GT-P7510_from_Supercurio/arm-2010.09/bin/arm-none-eabi-
+	modify the path to your path.
+
+Start Build
+   1. cd samsung-kernel-galaxytab101
+   2.  make samsung_p4wifi_defconfig
+   3. cd ..
+   4. ./galaxytab101_build_kernel.sh
+   5. ./galaxytab101_mkbootimage.sh 
+Now you should have  /tmp/bootimage.img
+
+Flash to Galaxy
+Before this, you need to root your Galaxy. (I have another doc for "how to root galaxy")
+
+   1. adb push bootimage.img /sdcard/tmp
+   2. flash_image /dev/block/mmcblk0p3 /sdcard/tmp/bootimage.img 
+
+
+
+
